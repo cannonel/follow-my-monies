@@ -1,6 +1,14 @@
 let transactions = [];
 let myChart;
 
+function saveRecord(record) {
+  const transaction = db.transaction(['new_trans'], 'readwrite');
+  //access store
+  const transObjectStore = transaction.objectStore('new_trans');
+  // add record to your store with add method.
+  transObjectStore.add(record);
+};
+
 fetch("/api/transaction")
   .then(response => {
     return response.json();
