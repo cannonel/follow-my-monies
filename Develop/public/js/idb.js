@@ -17,12 +17,18 @@ request.onerror = function(event) {
   // log error here
   console.log(event.target.errorCode);
 };
-function saveRecord(record) {
-  const transaction = db.transaction(['new_pizza'], 'readwrite');
-  const pizzaObjectStore = transaction.objectStore('new_pizza');
+function saveDepositRecord(record) {
+  const depositTransaction = db.transaction(['new_deposit'], 'readwrite');
+  const depositObjectStore = depositTransaction.objectStore('new_deposit');
   // add record to your store with add method.
-  pizzaObjectStore.add(record);
-}
+  depositObjectStore.add(record);
+};
+function saveExpenseRecord(record) {
+    const expenseTransaction = db.transaction(['new_expense'], 'readwrite');
+    const expenseObjectStore = expenseTransaction.objectStore('new_expense');
+    // add record to your store with add method.
+    expenseObjectStore.add(record);
+  }
 // function uploadPizza() {
 //   // open a transaction on your pending db
 //   const transaction = db.transaction(['new_pizza'], 'readwrite');
