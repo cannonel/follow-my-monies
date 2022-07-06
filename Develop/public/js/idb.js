@@ -26,40 +26,40 @@ function saveRecord(record) {
   depositObjectStore.add(record);
 };
 
-// function uploadPizza() {
-//   // open a transaction on your pending db
-//   const transaction = db.transaction(['new_pizza'], 'readwrite');
-//   // access your pending object store
-//   const pizzaObjectStore = transaction.objectStore('new_pizza');
-//   // get all records from store and set to a variable
-//   const getAll = pizzaObjectStore.getAll();
-//   getAll.onsuccess = function() {
-//     // if there was data in indexedDb's store, let's send it to the api server
-//     if (getAll.result.length > 0) {
-//       fetch('/api/pizzas', {
-//         method: 'POST',
-//         body: JSON.stringify(getAll.result),
-//         headers: {
-//           Accept: 'application/json, text/plain, */*',
-//           'Content-Type': 'application/json'
-//         }
-//       })
-//         .then(response => response.json())
-//         .then(serverResponse => {
-//           if (serverResponse.message) {
-//             throw new Error(serverResponse);
-//           }
-//           const transaction = db.transaction(['new_pizza'], 'readwrite');
-//           const pizzaObjectStore = transaction.objectStore('new_pizza');
-//           // clear all items in your store
-//           pizzaObjectStore.clear();
-//         })
-//         .catch(err => {
-//           // set reference to redirect back here
-//           console.log(err);
-//         });
-//     }
-//   };
+function uploadTrans() {
+  // open a transaction on your pending db
+  const transaction = db.transaction(['new_trans'], 'readwrite');
+  // access your pending object store
+  const transObjectStore = transaction.objectStore('new_trans');
+  // get all records from store and set to a variable
+  const getTrans = transObjectStore.getAll();
+  getTrans.onsuccess = function() {
+    // if there was data in indexedDb's store, let's send it to the api server
+    if (getTrans.result.length > 0) {
+      fetch('/api/transaction/bulk', {
+        method: 'POST',
+        body: JSON.stringify(getTrans.result),
+        headers: {
+          Accept: 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(response => response.json())
+        .then(serverResponse => {
+          if (serverResponse.message) {
+            throw new Error(serverResponse);
+          }
+          const transaction = db.transaction(['new_trans'], 'readwrite');
+          const transObjectStore = transaction.objectStore('new_trans');
+          // clear all items in your store
+          transObjectStore.clear();
+        })
+        .catch(err => {
+          // set reference to redirect back here
+          console.log(err);
+        });
+    }
+  };
 }
 // listen for app coming back online
-window.addEventListener('online', uploadPizza);
+window.addEventListener('online', uploadTrans);
