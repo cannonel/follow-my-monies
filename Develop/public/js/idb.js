@@ -23,7 +23,7 @@ function saveRecord(record) {
   //access store
   const transObjectStore = transaction.objectStore('new_trans');
   // add record to your store with add method.
-  depositObjectStore.add(record);
+  transObjectStore.add(record);
 };
 
 function uploadTrans() {
