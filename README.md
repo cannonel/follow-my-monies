@@ -8,6 +8,7 @@ This application allows the user to be able to track my withdrawals and deposits
 ## Technologies utilized
 -npm </br>
 -mongoose </br>
+-mongoDB</br>
 -express.js </br>
 -webpack.js
 
